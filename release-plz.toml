@@ -1,0 +1,17 @@
+[workspace]
+# Update the changelog on each release-pr run.
+changelog_update = true
+# Use the existing CHANGELOG.md format (Keep a Changelog).
+changelog_path = "CHANGELOG.md"
+# Run `cargo semver-checks` before bumping; block breaking changes on a patch bump.
+semver_check = true
+# Create a GitHub Release on tag push.
+git_release_enable = true
+git_release_type = "auto"
+# Conventional-commit-driven changelog.
+git_release_draft = false
+
+[[package]]
+name = "metrics-exporter-sentry-v2"
+# Publish to crates.io on release.
+publish = true
