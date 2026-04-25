@@ -24,9 +24,11 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          # Pin to the exact commit CI just ran against so the release
-          # references the same tree that passed.
-          ref: ${{ github.event.workflow_run.head_sha }}
+          # Check out the branch CI just ran against. release-plz needs an
+          # attached HEAD (it calls `git rev-parse --abbrev-ref @{upstream}`),
+          # so we use `head_branch` rather than `head_sha`. In practice the
+          # branch tip equals `head_sha` at trigger time.
+          ref: ${{ github.event.workflow_run.head_branch }}
           persist-credentials: false
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
@@ -50,7 +52,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.event.workflow_run.head_sha }}
+          ref: ${{ github.event.workflow_run.head_branch }}
           persist-credentials: false
       - name: Install Rust toolchain
         uses: dtolnay/rust-toolchain@stable
